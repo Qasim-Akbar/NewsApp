@@ -12,14 +12,16 @@ import com.aml.newsapp.models.Article
     version = 1
 )
 @TypeConverters(Converters::class)
-abstract class ArticleDatabase : RoomDatabase() {
-    abstract fun getArticleDao(): ArticleDao
+abstract class ArticleDatabase : RoomDatabase() { //for room this will be always abstarct class
+    abstract fun getArticleDao(): ArticleDao // Room with do automatically its implementation behind the scene for us
 
     companion object{
-        @Volatile
+        @Volatile // other threads will immediately see when a thread change this instance
         private var instance: ArticleDatabase?=null
-        private val LOCK = Any()
+        //make sure their is on single instance of this variable
+        private val LOCK = Any() // we will use this to synchronize setting the instance
 
+        //ensure only single initialization
         operator fun invoke(context: Context) = instance ?: synchronized(LOCK){
             instance ?: createDatabase(context).also{ instance = it }
         }

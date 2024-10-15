@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id 'com.google.devtools.ksp'
+    alias(libs.plugins.devtools.ksp)
+    alias(libs.plugins.navigation.safeargs)
 
 }
 
@@ -34,10 +35,14 @@ android {
     }
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
 }
 
 dependencies {
+
+    implementation libs.kotlin.stdlib
+    ksp libs.symbol.processing.api
 
     implementation libs.androidx.core.ktx
     implementation libs.androidx.appcompat
@@ -54,7 +59,7 @@ dependencies {
     // Room
     implementation libs.androidx.room.runtime
     annotationProcessor libs.androidx.room.compiler
-   // ksp libs.androidx.room.compiler
+    ksp libs.androidx.room.compiler
 
     // Kotlin Extensions and Coroutines support for Room
     implementation libs.androidx.room.ktx
@@ -78,5 +83,5 @@ dependencies {
 
     // Glide
     implementation libs.glide
-   // ksp libs.compiler
+    ksp libs.compiler
 }
