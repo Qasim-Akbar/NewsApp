@@ -3,7 +3,6 @@ package com.aml.newsapp.repository
 import com.aml.newsapp.api.RetrofitInstance
 import com.aml.newsapp.db.ArticleDatabase
 import com.aml.newsapp.models.Article
-import java.util.Locale.IsoCountryCode
 
 class NewsRepository(
     val db: ArticleDatabase
@@ -12,7 +11,7 @@ class NewsRepository(
     suspend fun getBreakingNews(countryCode: String, pageNumber: Int) =
         RetrofitInstance.api.getBreakingNews(countryCode, pageNumber)
 
-    suspend fun searchNews(searchQuery: String, pageNumber: Int) =
+    suspend fun getSearchNews(searchQuery: String, pageNumber: Int) =
         RetrofitInstance.api.searchForNews(searchQuery, pageNumber)
 
     suspend fun upsert(article: Article) = db.getArticleDao().upsert(article)

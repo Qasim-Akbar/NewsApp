@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
@@ -46,6 +47,7 @@ class BreakingNewsFragment : Fragment() {
             val bundle = Bundle().apply {
                 putSerializable("article", it)
             }
+
             (activity as NewsActivity).navController.navigate(
                 R.id.action_breakingNewsFragment_to_articleFragment,
                 bundle
@@ -70,6 +72,7 @@ class BreakingNewsFragment : Fragment() {
                 is Resource.Error ->{
                     hideProgressBar()
                     response.message?.let{ message->
+                        Toast.makeText(activity, "An error occured: $message", Toast.LENGTH_LONG).show()
                         Log.e(TAG, "An error occured: $message")
                     }
                 }
