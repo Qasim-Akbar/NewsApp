@@ -46,7 +46,7 @@ class SavedNewsFragment : Fragment() {
             }
            // findNavController().navigate(
             (activity as NewsActivity).navController.navigate(
-                R.id.action_breakingNewsFragment_to_articleFragment,
+                R.id.action_savedNewsFragment_to_articleFragment,
                 bundle
             )
         }

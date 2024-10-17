@@ -100,6 +100,7 @@ class NewsViewModel(
                 searchNews.postValue(Resource.Error("No internet connection"))
             }
         } catch (t: Throwable){
+            t.printStackTrace()
             when(t){
                 is IOException -> searchNews.postValue(Resource.Error("Network Failure"))
                 else -> searchNews.postValue(Resource.Error("Conversion Error"))
@@ -117,6 +118,7 @@ class NewsViewModel(
                 breakingNews.postValue(Resource.Error("No internet connection"))
             }
         } catch (t: Throwable){
+            t.printStackTrace()
             when(t){
                 is IOException -> breakingNews.postValue(Resource.Error("Network Failure"))
                 else -> breakingNews.postValue(Resource.Error("Conversion Error"))

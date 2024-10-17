@@ -1,7 +1,7 @@
 package com.aml.newsapp.api
 
+import com.aml.newsapp.BuildConfig.API_KEY
 import com.aml.newsapp.models.NewsResponse
-import com.aml.newsapp.util.Constants.Companion.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

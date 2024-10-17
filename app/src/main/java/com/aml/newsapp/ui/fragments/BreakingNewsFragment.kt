@@ -24,18 +24,19 @@ import com.aml.newsapp.util.Resource
 class BreakingNewsFragment : Fragment() {
 
     private val TAG = "BreakingNewsFragment"
-    private  lateinit var binding: FragmentBreakingNewsBinding
+    private  var _binding: FragmentBreakingNewsBinding?=null
     lateinit var viewModel: NewsViewModel
-    lateinit var newsAdapter: NewsAdapter
+    private var newsAdapter: NewsAdapter?=null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentBreakingNewsBinding.inflate(inflater, container, false)
-
-        return binding.root
+        _binding = FragmentBreakingNewsBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,7 +44,7 @@ class BreakingNewsFragment : Fragment() {
         setupResyclerView()
         Log.e(TAG, "onViewCreated")
 
-        newsAdapter.setOnItemClickListener {
+        newsAdapter?.setOnItemClickListener {
             val bundle = Bundle().apply {
                 putSerializable("article", it)
             }
@@ -61,7 +62,7 @@ class BreakingNewsFragment : Fragment() {
 
                     hideProgressBar()
                     response.data?.let{ newsResponse ->
-                        newsAdapter.differ.submitList(newsResponse.articles.toList())
+                        newsAdapter?.differ?.submitList(newsResponse.articles.toList())
                         val totalPages = newsResponse.totalResults/ QUERY_PAGE_SIZE+2
                         isLastPage = viewModel.breakingNewsPage == totalPages
                         if(isLastPage){
@@ -127,6 +128,12 @@ class BreakingNewsFragment : Fragment() {
             }
 
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        newsAdapter=null
     }
 
     private fun setupResyclerView(){
